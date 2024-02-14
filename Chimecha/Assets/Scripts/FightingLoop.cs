@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameLoop : MonoBehaviour
+public class FightingLoop : MonoBehaviour
 {
     int numOfPlayers;
     int currentPlayer;
