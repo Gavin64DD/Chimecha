@@ -12,22 +12,41 @@ public class Card : MonoBehaviour
         Cool,
         RealSteel
     }
+    public enum BodyPart
+    {
+        Head,
+        Arm,
+        Torso,
+        Legs
+    }
     [SerializeField] int attack;
     [SerializeField] int defense;
     [SerializeField] int speed;
+    [SerializeField] int cooldown;
     [SerializeField] CardTier tier = CardTier.Average;
-    void Start()
+    [SerializeField] BodyPart bodyPart = BodyPart.Torso;
+
+
+    public int Attack
     {
-        
+        get;
+        set;
     }
-
-    void Update()
+    public int Defense
     {
-        
+        get;
+        set;
     }
-
-    void SpecialAbility()
+    public int Speed
     {
+        get;
+        set;
+    }
+    public void SpecialAbility()
+    {
+        if (cooldown != 0)
+        {
 
+        }
     }
 }
