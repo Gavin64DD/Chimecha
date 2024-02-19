@@ -13,7 +13,7 @@ public class FightingLoop : MonoBehaviour
     void Start()
     {
         numOfPlayers = 4;
-        waiting = true;
+        waiting = false;
         currentPlayer = 1;
 
         //Temporary loop that automatically gives each player 4 sets of random cards
@@ -29,8 +29,20 @@ public class FightingLoop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!waiting) return;
+        if (waiting) return;
+        else{
+            newTurn();
+            if (currentPlayer == numOfPlayers) currentPlayer = 1;
+            else currentPlayer++;
+        }
+    }
 
+    //Will display all cards that the current player has
+    void newTurn()
+    {
+        foreach(Card card in cardLists[currentPlayer])
+        {
 
+        }
     }
 }
