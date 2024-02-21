@@ -7,12 +7,12 @@ public class FightingLoop : MonoBehaviour
     int numOfPlayers;
     int currentPlayer;
     bool waiting;
-    List<List<Card>> cardLists;
+    List<Player> playerList;
 
     // Start is called before the first frame update
     void Start()
     {
-        numOfPlayers = 4;
+        numOfPlayers = 2;
         waiting = false;
         currentPlayer = 1;
 
@@ -40,9 +40,9 @@ public class FightingLoop : MonoBehaviour
     //Will display all cards that the current player has
     void newTurn()
     {
-        foreach(Card card in cardLists[currentPlayer])
+        /*foreach(Card card in playerList[currentPlayer])
         {
 
-        }
+        }*/
     }
 }
