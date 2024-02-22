@@ -7,7 +7,7 @@ public class FightingLoop : MonoBehaviour
     int numOfPlayers;
     int currentPlayer;
     bool waiting;
-    List<Player> playerList;
+    public List<Player> playerList;
 
     // Start is called before the first frame update
     void Start()
@@ -19,10 +19,7 @@ public class FightingLoop : MonoBehaviour
         //Temporary loop that automatically gives each player 4 sets of random cards
         for (int i = 0; i < numOfPlayers; i++)
         {
-            for (int j = 0; j < 6; j++)
-            {
-
-            }
+            playerList[i] = new Player();
         }
     }
 
