@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClickCard : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class ClickCard : MonoBehaviour
     List<Player> playerList;
     Player target;
     Player player;
+    int startingHP;
     int attackValue;
     int healValue;
     bool set = false;
@@ -35,18 +37,21 @@ public class ClickCard : MonoBehaviour
             player = playerList[1];
         }
         set = true;
+        startingHP = player.totalHP;
     }
 
     public void Attack(){
         setPlayers();
         int dodge = Random.Range(1, 10);
         if(dodge > target.totalSpeed){
-            target.totalHP -= player.totalAttack;
+            target.totalHP = target.totalHP - player.totalAttack;
         }
+        if (target.totalHP < 0) target.totalHP = 0;
     }
 
     public void Heal() {
         setPlayers();
-        target.totalHP += Random.Range(1, 5);
+        player.totalHP = player.totalHP + Random.Range(1, 5);
+        if (player.totalHP > startingHP) player.totalHP = startingHP;
     }
 }
