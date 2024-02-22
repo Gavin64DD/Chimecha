@@ -5,35 +5,48 @@ using UnityEngine;
 public class ClickCard : MonoBehaviour
 {
     [SerializeField] bool isPlayer1;
-    [SerializeField] FightingLoop loop;
-    Player attackTarget;
+    List<Player> playerList;
+    Player target;
     Player player;
     int attackValue;
     int healValue;
+    bool set = false;
 
     // Start is called before the first frame update
     void Start()
     {
         attackValue = Random.Range(1, 10);
         healValue = Random.Range(1, 10);
-        if (isPlayer1){
-            attackTarget = loop.playerList[1];
-            player = loop.playerList[0];
-        }
-        else{
-            attackTarget = loop.playerList[0];
-            player = loop.playerList[1];
-        }
     }
 
-    public void Attack(int value, Player target, Player player){
+    void setPlayers()
+    {
+        if (set) return;
+
+        playerList = GameObject.Find("Main Camera").GetComponent<FightingLoop>().playerList;
+        if (isPlayer1)
+        {
+            target = playerList[1];
+            player = playerList[0];
+        }
+        else
+        {
+            target = playerList[0];
+            player = playerList[1];
+        }
+        set = true;
+    }
+
+    public void Attack(){
+        setPlayers();
         int dodge = Random.Range(1, 10);
         if(dodge > target.totalSpeed){
-            target.totalHP -= value * player.totalAttack;
+            target.totalHP -= player.totalAttack;
         }
     }
 
-    public void Heal(int value, Player target) {
-        target.totalHP += value * player.totalAttack;
+    public void Heal() {
+        setPlayers();
+        target.totalHP += Random.Range(1, 5);
     }
 }
