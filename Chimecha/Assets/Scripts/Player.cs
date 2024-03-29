@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] List<Card> mech = new List<Card>();
+    [SerializeField] List<Card> mech;
+    
     public int totalHP = Random.Range(10, 30);
     public int totalAttack = Random.Range(1, 5);
     public int totalSpeed = Random.Range(1, 3);

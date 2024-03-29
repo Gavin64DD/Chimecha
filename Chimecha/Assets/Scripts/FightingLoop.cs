@@ -7,7 +7,6 @@ public class FightingLoop : MonoBehaviour
 {
     int numOfPlayers;
     int currentPlayer;
-    bool waiting;
     public List<Player> playerList;
     [SerializeField] Text player1Health;
     [SerializeField] Text player2Health;
@@ -15,12 +14,14 @@ public class FightingLoop : MonoBehaviour
     [SerializeField] Text player2Attack;
     [SerializeField] Text player1Speed;
     [SerializeField] Text player2Speed;
-
+    [SerializeField] public Button player1AttackButton;
+    [SerializeField] public Button player1HealButton;
+    [SerializeField] public Button player2AttackButton;
+    [SerializeField] public Button player2HealButton;
     // Start is called before the first frame update
     void Start()
     {
         numOfPlayers = 2;
-        waiting = false;
         currentPlayer = 1;
 
         //Temporary loop that automatically gives each player 4 sets of random cards
