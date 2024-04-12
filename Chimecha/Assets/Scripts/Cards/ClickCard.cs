@@ -19,8 +19,6 @@ public class ClickCard : MonoBehaviour
     {
         attackValue = Random.Range(1, 10);
         healValue = Random.Range(1, 10);
-        GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2AttackButton.enabled = false;
-        GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2HealButton.enabled = false;
     }
 
     void setPlayers()
@@ -52,19 +50,11 @@ public class ClickCard : MonoBehaviour
         }
         if (target.totalHP < 0) target.totalHP = 0;
         if(isPlayer1)
-        {
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1AttackButton.enabled = false;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1HealButton.enabled = false;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2AttackButton.enabled = true;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2HealButton.enabled = true;
+        {   
             turnIndicator.text = "It is currently Player 2's turn.";
         }
         else
         {
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1AttackButton.enabled = true;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1HealButton.enabled = true;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2AttackButton.enabled = false;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2HealButton.enabled = false;
             turnIndicator.text = "It is currently Player 1's turn.";
         }
     }
@@ -76,18 +66,10 @@ public class ClickCard : MonoBehaviour
         if (player.totalHP > startingHP) player.totalHP = startingHP;
         if (isPlayer1)
         {
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1AttackButton.enabled = false;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1HealButton.enabled = false;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2AttackButton.enabled = true;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2HealButton.enabled = true;
             turnIndicator.text = "It is currently Player 2's turn.";
         }
         else
         {
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1AttackButton.enabled = true;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player1HealButton.enabled = true;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2AttackButton.enabled = false;
-            GameObject.Find("Main Camera").GetComponent<FightingLoop>().player2HealButton.enabled = false;
             turnIndicator.text = "It is currently Player 1's turn.";
         }
     }

@@ -1,24 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] List<Card> mech;
-    
-    public int totalHP = Random.Range(10, 30);
-    public int totalAttack = Random.Range(1, 5);
-    public int totalSpeed = Random.Range(1, 3);
+    [SerializeField] public List<Card> mech;
+    [SerializeField] Card head;
+    [SerializeField] Card arms;
+    [SerializeField] Card torso;
+    [SerializeField] Card weapon;
+    [SerializeField] Card legs;
 
 
+    public int totalHP;
+    public int totalAttack;
+    public int totalSpeed;
+
+    private void OnEnable()
+    {
+        
+    }
+    private void Awake()
+    {
+        mech.Add(head);
+        mech.Add(arms);
+        mech.Add(torso);
+        mech.Add(weapon);
+        mech.Add(legs);
+    }
     // Start is called before the first frame update
     void Start()
     {
+        int speedSum = 0;
+        foreach (Card card in mech)
+        {
+            speedSum += card.Speed;
+        }
+        totalSpeed = speedSum;
+ 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
