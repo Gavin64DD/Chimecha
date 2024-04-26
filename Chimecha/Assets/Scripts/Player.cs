@@ -10,6 +10,25 @@ public class Player : MonoBehaviour
     public int totalSpeed = Random.Range(1, 3);
 
 
+<<<<<<< Updated upstream
+=======
+    public int totalHP;
+    public int totalAttack;
+    public int totalSpeed;
+
+    private void OnEnable()
+    {
+        
+    }
+    private void Awake()
+    {
+        Card[] cards = GetComponentsInChildren<Card>();
+        foreach(Card card in cards)
+        {
+            mech.Add(card);
+        }
+    }
+>>>>>>> Stashed changes
     // Start is called before the first frame update
     void Start()
     {
