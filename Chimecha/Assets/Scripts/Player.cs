@@ -7,11 +7,6 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField] public List<Card> mech;
-    [SerializeField] Card head;
-    [SerializeField] Card arms;
-    [SerializeField] Card torso;
-    [SerializeField] Card weapon;
-    [SerializeField] Card legs;
 
 
     public int totalHP;
@@ -24,11 +19,11 @@ public class Player : MonoBehaviour
     }
     private void Awake()
     {
-        mech.Add(head);
-        mech.Add(arms);
-        mech.Add(torso);
-        mech.Add(weapon);
-        mech.Add(legs);
+        Card[] cards = GetComponentsInChildren<Card>();
+        foreach(Card card in cards)
+        {
+            mech.Add(card);
+        }
     }
     // Start is called before the first frame update
     void Start()

@@ -26,23 +26,24 @@ public class Card : MonoBehaviour
         Legs,
         Weapon
     }
-    [SerializeField] int attack;
-    [SerializeField] int maxHealth;
-    [SerializeField] int health;
-    [SerializeField] int speed;
-    [SerializeField] int maxCooldown;
-    [SerializeField] int cooldown;
-    [SerializeField] bool hasSpecial;
+    [SerializeField] protected int attack;
+    [SerializeField] protected int maxHealth;
+    [SerializeField] protected int health;
+    [SerializeField] protected int speed;
+    [SerializeField] protected int maxCooldown;
+    [SerializeField] protected int cooldown;
+    [SerializeField] protected bool hasSpecial;
     public bool selected;
     public bool isTurn;
-    [SerializeField] TMP_Text healthText;
-    [SerializeField] TMP_Text attackText;
-    [SerializeField] TMP_Text speedText;
+    [SerializeField] protected TMP_Text healthText;
+    [SerializeField] protected TMP_Text attackText;
+    [SerializeField] protected TMP_Text speedText;
     [SerializeField] CardTier tier = CardTier.Average;
     [SerializeField] BodyPart bodyPart = BodyPart.Torso;
     public SpriteRenderer spriteRenderer;
     [SerializeField] Card[] playerDeck;
-    
+    [SerializeField] public Color baseColor;
+    [SerializeField] public Color baseOffColor;
 
 
     public int Attack
@@ -70,18 +71,18 @@ public class Card : MonoBehaviour
         health = maxHealth;
         healthText.text = $"{health}";
     }
-    private void Start()
+    virtual public void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
-    public void SpecialAbility()
+    virtual public void SpecialAbility()
     {
         if (cooldown != 0)
         {
 
         }
     }
-    public void AdjustHealth(int adjustment)
+    virtual public void AdjustHealth(int adjustment)
     {
         health += adjustment;
         if (health <= 0)
