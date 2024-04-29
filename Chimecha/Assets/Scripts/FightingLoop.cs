@@ -16,6 +16,7 @@ public class FightingLoop : MonoBehaviour
     Card currentSelected;
     [SerializeField] TMP_Text statusText;
     public GameObject resetButton;
+    public SpecialButton specialButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,14 +37,15 @@ public class FightingLoop : MonoBehaviour
             card.isTurn = true;
         }
         AdjustText();
+        specialButton.OnPressed += SpecialHit;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(cardSelected)
+        if (cardSelected)
         {
-            if(player1Turn)
+            if (player1Turn)
             {
                 SetCardsActive(playerList[1]);
                 player2tint.SetActive(false);
@@ -51,6 +53,25 @@ public class FightingLoop : MonoBehaviour
                 {
                     if (card.selected)
                     {
+                        if (card.hasSpecial)
+                        {
+                            if (card.cooldown == 0)
+                            {
+                                specialButton.GetComponent<SpecialButton>().enabled = true;
+                                specialButton.GetComponent<BoxCollider>().enabled = true;
+                                specialButton.image.color = Color.green;
+                            }
+                            else
+                            {
+                                specialButton.GetComponent<SpecialButton>().enabled = false;
+                                specialButton.GetComponent<BoxCollider>().enabled = false;
+                                specialButton.image.color = new Color(.25f, .45f, .25f);
+                            }
+                            return;
+                        }
+                        specialButton.GetComponent<SpecialButton>().enabled = false;
+                        specialButton.GetComponent<BoxCollider>().enabled = false;
+                        specialButton.image.color = new Color(.15f, .15f, .25f);
                         return;
                     }
                 }
@@ -66,6 +87,25 @@ public class FightingLoop : MonoBehaviour
                 {
                     if (card.selected)
                     {
+                        if (card.hasSpecial)
+                        {
+                            if (card.cooldown == 0)
+                            {
+                                specialButton.GetComponent<SpecialButton>().enabled = true;
+                                specialButton.GetComponent<BoxCollider>().enabled = true;
+                                specialButton.image.color = Color.green;
+                            }
+                            else
+                            {
+                                specialButton.GetComponent<SpecialButton>().enabled = false;
+                                specialButton.GetComponent<BoxCollider>().enabled = false;
+                                specialButton.image.color = new Color(.25f, .45f, .25f);
+                            }
+                            return;
+                        }
+                        specialButton.GetComponent<SpecialButton>().enabled = false;
+                        specialButton.GetComponent<BoxCollider>().enabled = false;
+                        specialButton.image.color = new Color(.15f, .15f, .25f);
                         return;
                     }
                 }
@@ -76,6 +116,9 @@ public class FightingLoop : MonoBehaviour
         }
         else
         {
+            specialButton.GetComponent<SpecialButton>().enabled = false;
+            specialButton.GetComponent<BoxCollider>().enabled = false;
+            specialButton.image.color = new Color(.15f, .15f, .25f);
             if (player1Turn)
             {
                 player1tint.SetActive(false);
@@ -140,7 +183,18 @@ public class FightingLoop : MonoBehaviour
     {
         card.AdjustHealth(currentSelected.Attack * -1);
     }
-    
+
+    void UseSpecial(Card card)
+    {
+        card.SpecialAbility();
+        newTurn();
+    }
+
+    void SpecialHit()
+    {
+        UseSpecial(currentSelected);
+    }
+
     //Will display all cards that the current player has
     void newTurn()
     {
@@ -152,10 +206,14 @@ public class FightingLoop : MonoBehaviour
             {
                 card.isTurn = !card.isTurn;
                 card.selected = false;
-                if(card.isTurn)
+                if (card.cooldown != 0)
+                {
+                    card.cooldown -= 1;
+                }
+                if (card.isTurn)
                 {
                     card.enabled = true;
-                    card.spriteRenderer.color = Color.white;
+                    card.spriteRenderer.color = card.baseColor;
                 }
             }
         }

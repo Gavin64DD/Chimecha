@@ -10,7 +10,7 @@ public class SpecialButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        image = GetComponent<Image>();
+        image = GetComponentInChildren<Image>();
     }
 
     // Update is called once per frame

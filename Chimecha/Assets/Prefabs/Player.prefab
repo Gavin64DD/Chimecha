@@ -83,11 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mech: []
-  head: {fileID: 0}
-  arms: {fileID: 0}
-  torso: {fileID: 0}
-  weapon: {fileID: 0}
-  legs: {fileID: 0}
   totalHP: 0
   totalAttack: 0
   totalSpeed: 0
@@ -338,6 +333,30 @@ PrefabInstance:
     - target: {fileID: 194716696728280556, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955312356844224270, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
+      propertyPath: baseColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955312356844224270, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
+      propertyPath: baseColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955312356844224270, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
+      propertyPath: baseColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955312356844224270, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
+      propertyPath: baseOffColor.b
+      value: 0.5566038
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955312356844224270, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
+      propertyPath: baseOffColor.g
+      value: 0.5566038
+      objectReference: {fileID: 0}
+    - target: {fileID: 3955312356844224270, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
+      propertyPath: baseOffColor.r
+      value: 0.5566038
       objectReference: {fileID: 0}
     - target: {fileID: 7511959392128576781, guid: 5bbbc016c5397ee4faad52cd462d5e77, type: 3}
       propertyPath: m_Name

@@ -15,6 +15,7 @@ public class Pope : Card
         healthText.text = "14";
         maxCooldown = 3;
         cooldown = 0;
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class Card : MonoBehaviour
 {
+    public Camera mainCamera;
     public delegate void ChangeTurns();
     public event ChangeTurns OnTurnChange;
     public delegate void Attacked(Card sender);
@@ -31,8 +32,10 @@ public class Card : MonoBehaviour
     [SerializeField] protected int health;
     [SerializeField] protected int speed;
     [SerializeField] protected int maxCooldown;
-    [SerializeField] protected int cooldown;
-    [SerializeField] protected bool hasSpecial;
+    [SerializeField] public int cooldown;
+    [SerializeField] public bool hasSpecial;
+    public bool isGrowable;
+    public bool isGrown;
     public bool selected;
     public bool isTurn;
     [SerializeField] protected TMP_Text healthText;
@@ -63,6 +66,7 @@ public class Card : MonoBehaviour
     }
     private void Awake()
     {
+        
         maxHealth = Random.Range(7, 12);
         attack = Random.Range(1, 5);
         attackText.text = $"{attack}";
@@ -73,6 +77,11 @@ public class Card : MonoBehaviour
     }
     virtual public void Start()
     {
+        baseColor = Color.white;
+        baseOffColor = Color.gray;
+        mainCamera = Camera.main;
+        isGrowable = true;
+        isGrown = false;
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
     virtual public void SpecialAbility()
@@ -82,6 +91,21 @@ public class Card : MonoBehaviour
 
         }
     }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector2 mousePosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D mouseHit = Physics2D.Raycast(mousePosition, Vector2.zero);
+            if (mouseHit.collider.gameObject != null && mouseHit.collider.gameObject == this.gameObject)
+            {
+                if (isGrowable)
+                {
+                    HandleRightClick();
+                }
+            }
+        }
+    }
     virtual public void AdjustHealth(int adjustment)
     {
         health += adjustment;
@@ -89,6 +113,10 @@ public class Card : MonoBehaviour
         {
             this.transform.parent.transform.parent.GetComponent<Player>().mech.Remove(this);
             Destroy(this.gameObject);
+        }
+        if(health > maxHealth)
+        {
+            health = maxHealth;
         }
         healthText.text = $"{health}";
     }
@@ -108,7 +136,7 @@ public class Card : MonoBehaviour
                     {
                         if (card == this)
                         {
-                            card.spriteRenderer.color = Color.white;
+                            card.spriteRenderer.color = baseColor;
                         }
                         else
                         {
@@ -121,7 +149,7 @@ public class Card : MonoBehaviour
                     foreach (Card card in playerDeck)
                     {
                         card.enabled = true;
-                        card.spriteRenderer.color = Color.white;
+                        card.spriteRenderer.color = baseColor;
                     }
                 }
             }
@@ -132,7 +160,47 @@ public class Card : MonoBehaviour
             }
         }
     }
+    public void HandleRightClick()
+    {
+        Debug.Log($"{this.name} Right Clicked");
+        if (isGrowable)
+        {
+            StartCoroutine(GrowCard());
+        }
+    }
 
+    IEnumerator GrowCard()
+    {
+        isGrowable = false;
+
+        if (!isGrown)
+        {
+            spriteRenderer.sortingLayerName = "Top";
+            float now = Time.time;
+            while (Time.time - now < .5f)
+            {
+                float t = (Time.time - now) / .5f;
+                transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(1.5f, 1.5f, 1.5f), t);
+                yield return null;
+            }
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            isGrown = true;
+        }
+        else
+        {
+            float now = Time.time;
+            while (Time.time - now < .5f)
+            {
+                float t = (Time.time - now) / .5f;
+                transform.localScale = Vector3.Lerp(new Vector3(1.5f, 1.5f, 1.5f), new Vector3(1, 1, 1), t);
+                yield return null;
+            }
+            transform.localScale = new Vector3(1, 1, 1);
+            isGrown = false;
+            spriteRenderer.sortingLayerName = "Default";
+        }
+        isGrowable = true;
+    }
     public void DisableCard()
     {
         this.enabled = false;

@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5955452eadd4d14088e6b74f61bc094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
   attack: 0
   maxHealth: 0
   health: 0
@@ -357,6 +358,8 @@ MonoBehaviour:
   maxCooldown: 0
   cooldown: 0
   hasSpecial: 0
+  isGrowable: 1
+  isGrown: 0
   selected: 0
   isTurn: 0
   healthText: {fileID: 391270450726740899}
@@ -366,6 +369,8 @@ MonoBehaviour:
   bodyPart: 2
   spriteRenderer: {fileID: 0}
   playerDeck: []
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+  baseOffColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!61 &801325404973556886
 BoxCollider2D:
   m_ObjectHideFlags: 0
